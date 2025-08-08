@@ -3,7 +3,8 @@ import pandas as pd
 import joblib
 
 # Загрузка обученной модели
-model = joblib.load("best_model.pkl")
+model = joblib.load("model.pkl")
+
 
 # Заголовок страницы
 st.title("🏡 Прогноз цены на дом")
