@@ -1,19 +1,18 @@
-# Используем официальный образ Python 3.11 в качестве базового
-FROM python:3.11
+# Используем официальную Python картину
+FROM python:3.10-slim
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем необходимые файлы в контейнер
-COPY requirements.txt requirements.txt
-COPY app.py app.py
-COPY model.pkl model.pkl
+# Копируем все файлы проекта в контейнер
+COPY . /app
 
-# Устанавливаем зависимости из requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Устанавливаем все зависимости из requirements.txt
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
 
-# Открываем порт 5000
-EXPOSE 5000
+# Открываем порт 8501
+EXPOSE 8501
 
-# Запускаем Flask-приложение
-CMD ["python", "app.py"]
+# Команда для запуска приложения
+CMD ["streamlit", "run", "app.py", "--server.address=0.0.0.0", "--server.port=8501"]
